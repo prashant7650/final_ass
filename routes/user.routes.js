@@ -1,5 +1,5 @@
 const express = require("express")
-const { UserModel } = require("../model/User.model")
+const { userModel } = require("../model/User.model")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 
@@ -12,7 +12,7 @@ userRouter.post("/register", async (req, res) => {
             if (err) {
                 res.send({ "msg": "Something went wring", "error": err.message })
             } else {
-                const user = new UserModel({ name, email, pass: hash })
+                const user = new  userModel({ name, email, pass: hash })
                 await user.save();
                 res.send({ "msg": " New User register" })
 
@@ -28,7 +28,7 @@ userRouter.post("/register", async (req, res) => {
 userRouter.post("/login", async (req, res) => {
     const { email ,pass} = req.body
     try {
-        const user = await UserModel.find({ email })
+        const user = await  userModel.find({ email })
         console.log(user)
         if (user.length > 0) {
             bcrypt.compare(pass, user[0].pass, (err, result) => {

@@ -1,7 +1,7 @@
 const express = require("express")
 const {connection} = require("./db")
 const {userRouter} = require("./routes/User.routes") 
-const {UserModel}  =require("./model/User.model")
+const {userModel}  =require("./model/User.model")
 const {noteRouter} = require("./routes/Note.routes") 
 const {authonticate} = require("./middleware/authonticate.middlewares")
 const cors=require("cors")
@@ -22,7 +22,7 @@ app.get("/users",async(req,res) => {
     let query = req.query
     console.log(query)
     try{
-        const users = await UserModel.find(query)
+        const users = await userModel.find(query)
        res.send(users)
   
     }catch(err){ 
